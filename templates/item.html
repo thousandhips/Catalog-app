@@ -1,0 +1,28 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+	<body>
+	<div class = 'pane'>
+	<h1>Item Details</h1>
+
+
+
+
+		<h2>Name:</h2>
+		<p>{{item.name }}<p>
+		<h2>Description:</h2>
+	    <p>{{item.description}}<p>
+	    {% if item.user_id==user_id %}
+	        	<a href='{{url_for('editItem', category_name = item.category_name, item_name=item.name ) }}'>Edit</a> | 
+				<a href='{{url_for('deleteItem', category_name = item.category_name, item_name=item.name ) }}'>Delete</a>
+	    {% endif %}
+
+
+
+
+	</form>
+	</div>
+	</body>
+	</html>
+{% endblock %}

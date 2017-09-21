@@ -1,0 +1,86 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+	<div class="row divider green">
+		<div class="col-md-12"></div>
+	</div>
+	<div class="row banner menu">
+		<div class="col-md-11 col-md-offset-1 padding-none">
+			<h1>{{ category.name }}
+			<figure class="creator">
+				<img src="{{ creator.picture}}">
+				<figcaption>{{ creator.name }}</figcaption>
+			</figure>
+			</h1>
+
+		</div>
+	</div>
+
+	<div class="row">
+	    <div class="col-md-12">	
+			{% with messages = get_flashed_messages() %}
+		    {% if messages %}
+		          
+		        <ul>
+		        {% for message in messages %}
+		            <li> <strong> {{ message }} </strong> </li>
+		        {% endfor %}
+		        </ul>
+		        {% endif %}
+		    {% endwith %}
+		 </div>
+    </div>  
+
+    
+
+    <div class="row padding-top padding-bottom">
+		<div class="col-md-1"></div>
+		<div class="col-md-11 padding-none">
+			<a href="{{url_for('newItem')}}">
+				<button class="btn btn-default" id="new-catalog-item">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Catalog Item
+				</button>
+			</a>
+		</div>
+		<div class="col-md-7"></div>
+    </div>
+
+    {% if items !=[] %}
+
+
+	<h2>Items</h2>
+
+		{% for item in items %}
+
+
+		
+        <a href = "{{url_for( 'item', item_name = item.name, category_name=item.category_name)}}"> <p>{{item.name}}</p></a>
+
+        {% if item.user_id==user_id %}
+        	<a href='{{url_for('editItem', category_name = category.name, item_name=item.name ) }}'>Edit</a> | 
+			<a href='{{url_for('deleteItem', category_name = category.name, item_name=item.name ) }}'>Delete</a>
+    	{% endif %}
+	
+
+		<p>{{item.description}}</p>
+
+	
+	
+</br>
+</br>
+
+		{% endfor %}
+
+		
+
+		</br></br>
+
+		
+		
+
+		{% else %}
+		<p> You currently have no menu items. <p>
+		<a href = "{{url_for('newMenuItem', category_id = category.id )}}">Create New Item</a>
+			{% endif %}
+{% endblock %}

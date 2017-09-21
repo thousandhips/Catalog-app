@@ -1,0 +1,74 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+	<div class="row divider green">
+		<div class="col-md-12"></div>
+	</div>
+	<div class="row banner menu">
+		<div class="col-md-11 col-md-offset-1 padding-none">
+			<h1>{{ category.name }}
+			<figure class="creator">
+				<img src="{{ creator.picture}}">
+				<figcaption>{{ creator.name }}</figcaption>
+			</figure>
+			</h1>
+
+		</div>
+	</div>
+	<div class="row padding-top padding-bottom">
+		<div class="col-md-1"></div>
+		<div class="col-md-11 padding-none">
+			
+		</div>
+		<div class="col-md-7"></div>
+    </div>
+
+	<div class="row">
+	    <div class="col-md-12">	
+			{% with messages = get_flashed_messages() %}
+		    {% if messages %}
+		          
+		        <ul>
+		        {% for message in messages %}
+		            <li> <strong> {{ message }} </strong> </li>
+		        {% endfor %}
+		        </ul>
+		        {% endif %}
+		    {% endwith %}
+		 </div>
+    </div>  
+
+    {% if items !=[] %}
+
+
+	<h2>Items</h2>
+
+		{% for i in items %}
+
+
+		
+        <a href = "{{url_for( 'item', item_name = i.name)}}"> <p>{{i.name}}</p></a>
+	
+
+		<p>{{i.description}}</p>
+
+	
+	
+</br>
+</br>
+
+		{% endfor %}
+
+		
+
+		</br></br>
+
+		
+		
+
+		{% else %}
+		<p> You currently have no menu items. <p>
+		<a href = "{{url_for('newMenuItem', category_id = category.id )}}">Create New Item</a>
+			{% endif %}
+{% endblock %}
